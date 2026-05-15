@@ -30,8 +30,7 @@ type OrderRecord = {
   items: OrderItem[];
 };
 
-type Step = "client" | "order" | "record";
-type View = "operation" | "products";
+type Step = "client" | "order" | "record" | "products";
 
 const CLIENTS_STORAGE_KEY = "urreta-clients-v1";
 const ORDERS_STORAGE_KEY = "urreta-orders-v1";
@@ -304,7 +303,6 @@ const receiptRowStyle: CSSProperties = {
 
 export function UrretaHomePage() {
   const createClientFormRef = useRef<HTMLDivElement | null>(null);
-  const [activeView, setActiveView] = useState<View>("operation");
   const [activeStep, setActiveStep] = useState<Step | null>(null);
   const [clients, setClients] = useState<Client[]>(getInitialClients);
   const [products, setProducts] = useState<Product[]>(getInitialProducts);
@@ -554,17 +552,6 @@ export function UrretaHomePage() {
     opacity: enabled ? 1 : 0.76
   });
 
-  const viewButtonStyle = (view: View): CSSProperties => ({
-    border: "1px solid",
-    borderColor: activeView === view ? "#d56b1d" : "rgba(80, 50, 20, 0.12)",
-    background: activeView === view ? "#d56b1d" : "rgba(255,255,255,0.72)",
-    color: activeView === view ? "#fff8f2" : "#5d4734",
-    borderRadius: 999,
-    padding: "11px 18px",
-    fontWeight: 700,
-    cursor: "pointer"
-  });
-
   return (
     <main style={pageStyle}>
       <div style={wrapStyle}>
@@ -574,16 +561,6 @@ export function UrretaHomePage() {
         </section>
 
         <section style={stepsStyle}>
-          <button type="button" onClick={() => setActiveView("operation")} style={viewButtonStyle("operation")}>
-            Operacion
-          </button>
-          <button type="button" onClick={() => setActiveView("products")} style={viewButtonStyle("products")}>
-            Productos
-          </button>
-        </section>
-
-        {activeView === "operation" ? (
-          <section style={stepsStyle}>
           <button type="button" onClick={() => setActiveStep("client")} style={stepButtonStyle("client", true)}>
             1. Cliente
           </button>
@@ -605,10 +582,12 @@ export function UrretaHomePage() {
           >
             3. Registro
           </button>
-          </section>
-        ) : null}
+          <button type="button" onClick={() => setActiveStep("products")} style={stepButtonStyle("products", true)}>
+            4. Productos
+          </button>
+        </section>
 
-        {activeView === "operation" && activeStep === "client" ? (
+        {activeStep === "client" ? (
           <section style={panelStyle}>
             <div style={{ display: "grid", gap: 6 }}>
               <h2 style={sectionTitleStyle}>Elegi el cliente</h2>
@@ -687,7 +666,7 @@ export function UrretaHomePage() {
           </section>
         ) : null}
 
-        {activeView === "operation" && activeStep === "order" ? (
+        {activeStep === "order" ? (
           <section style={panelStyle}>
             <div style={{ display: "grid", gap: 6 }}>
               <h2 style={sectionTitleStyle}>Arma el pedido</h2>
@@ -810,7 +789,7 @@ export function UrretaHomePage() {
           </section>
         ) : null}
 
-        {activeView === "operation" && activeStep === "record" ? (
+        {activeStep === "record" ? (
           <section style={panelStyle}>
             <div style={{ display: "grid", gap: 6 }}>
               <h2 style={sectionTitleStyle}>Registro del pedido</h2>
@@ -869,7 +848,7 @@ export function UrretaHomePage() {
           </section>
         ) : null}
 
-        {activeView === "products" ? (
+        {activeStep === "products" ? (
           <section style={panelStyle}>
             <div style={{ display: "grid", gap: 6 }}>
               <h2 style={sectionTitleStyle}>Productos</h2>
