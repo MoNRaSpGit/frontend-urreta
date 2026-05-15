@@ -1,0 +1,32 @@
+{
+  "name": "Urreta Distribuidora",
+  "short_name": "Urreta",
+  "description": "Clientes, pedidos, registro y productos en una app instalable.",
+  "start_url": "/frontend-urreta/",
+  "scope": "/frontend-urreta/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efe5d8",
+  "theme_color": "#d56b1d",
+  "lang": "es-UY",
+  "icons": [
+    {
+      "src": "/frontend-urreta/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/frontend-urreta/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/frontend-urreta/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
