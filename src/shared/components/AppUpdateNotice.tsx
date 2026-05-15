@@ -1,5 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { getAvailableBuildMeta, type AppBuildMeta } from "../config/build";
+import { FRONTEND_BUILD_INFO, getAvailableBuildMeta, type AppBuildMeta } from "../config/build";
+
+const UPDATE_CHECK_INTERVAL_MS = 2 * 60 * 1000;
 
 const noticeStyle: CSSProperties = {
   position: "fixed",
@@ -21,7 +23,7 @@ const buttonStyle: CSSProperties = {
   border: "none",
   borderRadius: 999,
   padding: "9px 14px",
-  background: "#d56b1d",
+  background: "#a84d12",
   color: "#fff",
   fontWeight: 700,
   cursor: "pointer"
@@ -29,6 +31,7 @@ const buttonStyle: CSSProperties = {
 
 export function AppUpdateNotice() {
   const [availableBuild, setAvailableBuild] = useState<AppBuildMeta | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     if (import.meta.env.DEV) {
@@ -43,32 +46,54 @@ export function AppUpdateNotice() {
         return;
       }
 
-      if (nextBuild.releaseSha !== __APP_RELEASE_SHA__) {
+      if (nextBuild.releaseSha && nextBuild.releaseSha !== FRONTEND_BUILD_INFO.releaseSha) {
         setAvailableBuild(nextBuild);
+      } else {
+        setAvailableBuild(null);
       }
     };
 
     void checkForUpdate();
     const intervalId = window.setInterval(() => {
       void checkForUpdate();
-    }, 60_000);
+    }, UPDATE_CHECK_INTERVAL_MS);
+
+    const handleVisibilityOrFocus = () => {
+      if (document.visibilityState === "visible") {
+        void checkForUpdate();
+      }
+    };
+
+    window.addEventListener("focus", handleVisibilityOrFocus);
+    document.addEventListener("visibilitychange", handleVisibilityOrFocus);
 
     return () => {
       active = false;
       window.clearInterval(intervalId);
+      window.removeEventListener("focus", handleVisibilityOrFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityOrFocus);
     };
   }, []);
 
-  if (!availableBuild) {
+  function handleUpdate() {
+    setIsUpdating(true);
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  }
+
+  if (!availableBuild && !isUpdating) {
     return null;
   }
 
   return (
     <div style={noticeStyle}>
-      <span>Hay una actualizacion disponible.</span>
-      <button type="button" onClick={() => window.location.reload()} style={buttonStyle}>
-        Actualizar
-      </button>
+      <span>{isUpdating ? "Actualizando..." : "Hay una actualizacion disponible."}</span>
+      {!isUpdating ? (
+        <button type="button" onClick={handleUpdate} style={buttonStyle}>
+          Actualizar
+        </button>
+      ) : null}
     </div>
   );
 }

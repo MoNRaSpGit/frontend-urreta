@@ -62,3 +62,29 @@ Sobre el corte anterior se aplicaron dos ajustes de interfaz y publicacion:
 - `test:smoke`: OK
 - `build`: OK
 - `build:gh`: OK
+
+## 2026-05-15 - ajuste visual y nombre final
+
+Se cierra un ajuste corto de marca y lectura visual:
+
+- el naranja general de la app pasa a un tono mas oscuro
+- el cambio aplica a:
+  - botones
+  - tabs
+  - badges
+  - tarjetas de total
+  - cartel de actualizacion
+  - `theme-color` de la PWA
+- la PWA pasa a instalarse con nombre:
+  - `M.A.`
+- el aviso de nueva version queda mas solido:
+  - compara `releaseSha`
+  - revalida al volver a foco
+  - muestra estado `Actualizando...`
+  - fuerza `serviceWorker.update()` al cargar
+
+## PF ajuste visual y nombre final
+
+- `typecheck`: OK
+- `lint`: OK
+- `build`: OK

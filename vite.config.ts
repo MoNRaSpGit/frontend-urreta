@@ -38,15 +38,15 @@ export default defineConfig(({ mode }) => {
   );
   const webManifest = JSON.stringify(
     {
-      name: "Urreta Distribuidora",
-      short_name: "Urreta",
+      name: "M.A.",
+      short_name: "M.A.",
       description: "Clientes, pedidos, registro y productos en una app instalable.",
       start_url: appBase,
       scope: appBase,
       display: "standalone",
       orientation: "portrait",
       background_color: "#efe5d8",
-      theme_color: "#d56b1d",
+      theme_color: "#a84d12",
       lang: "es-UY",
       icons: [
         {

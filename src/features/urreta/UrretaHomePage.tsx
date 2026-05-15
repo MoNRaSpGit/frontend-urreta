@@ -113,10 +113,17 @@ function formatMoney(value: number) {
   }).format(value);
 }
 
+const BRAND_ORANGE = "#a84d12";
+const BRAND_ORANGE_SOFT = "rgba(168,77,18,0.14)";
+const BRAND_ORANGE_SURFACE = "rgba(168,77,18,0.10)";
+const BRAND_ORANGE_BORDER = "rgba(168,77,18,0.18)";
+const BRAND_ORANGE_GLOW = "rgba(168,77,18,0.16)";
+const BRAND_ORANGE_TEXT = "#7b3408";
+
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
   background:
-    "radial-gradient(circle at top, rgba(213,107,29,0.16), transparent 32%), linear-gradient(180deg, #f7f1e8 0%, #efe5d8 100%)",
+    `radial-gradient(circle at top, ${BRAND_ORANGE_GLOW}, transparent 32%), linear-gradient(180deg, #f7f1e8 0%, #efe5d8 100%)`,
   color: "#2a2018"
 };
 
@@ -183,7 +190,7 @@ const primaryButtonStyle: CSSProperties = {
   border: "none",
   borderRadius: 18,
   padding: "12px 16px",
-  background: "#d56b1d",
+  background: BRAND_ORANGE,
   color: "#fff8f2",
   fontWeight: 700,
   cursor: "pointer"
@@ -203,8 +210,8 @@ const subtleButtonStyle: CSSProperties = {
   border: "none",
   borderRadius: 14,
   padding: "8px 11px",
-  background: "rgba(213,107,29,0.14)",
-  color: "#a95010",
+  background: BRAND_ORANGE_SOFT,
+  color: BRAND_ORANGE_TEXT,
   fontWeight: 700,
   cursor: "pointer"
 };
@@ -238,8 +245,8 @@ const badgeStyle: CSSProperties = {
   width: "fit-content",
   padding: "6px 10px",
   borderRadius: 999,
-  background: "rgba(213,107,29,0.12)",
-  color: "#a95010",
+  background: BRAND_ORANGE_SOFT,
+  color: BRAND_ORANGE_TEXT,
   fontSize: 12,
   fontWeight: 700
 };
@@ -270,11 +277,11 @@ const clientImageStyle: CSSProperties = {
   width: 84,
   height: 84,
   borderRadius: 20,
-  background: "linear-gradient(135deg, rgba(213,107,29,0.18) 0%, rgba(213,107,29,0.32) 100%)",
-  border: "1px solid rgba(213,107,29,0.18)",
+  background: `linear-gradient(135deg, ${BRAND_ORANGE_BORDER} 0%, rgba(127,54,9,0.34) 100%)`,
+  border: `1px solid ${BRAND_ORANGE_BORDER}`,
   display: "grid",
   placeItems: "center",
-  color: "#a95010",
+  color: BRAND_ORANGE_TEXT,
   fontSize: 24,
   fontWeight: 800
 };
@@ -542,8 +549,8 @@ export function UrretaHomePage() {
 
   const stepButtonStyle = (step: Step, enabled: boolean): CSSProperties => ({
     border: "1px solid",
-    borderColor: activeStep === step ? "#d56b1d" : enabled ? "rgba(80, 50, 20, 0.14)" : "rgba(80, 50, 20, 0.08)",
-    background: activeStep === step ? "#d56b1d" : "rgba(255,255,255,0.72)",
+    borderColor: activeStep === step ? BRAND_ORANGE : enabled ? "rgba(80, 50, 20, 0.14)" : "rgba(80, 50, 20, 0.08)",
+    background: activeStep === step ? BRAND_ORANGE : "rgba(255,255,255,0.72)",
     color: activeStep === step ? "#fff8f2" : enabled ? "#5d4734" : "#9e8c7c",
     borderRadius: 999,
     padding: "11px 18px",
@@ -771,7 +778,7 @@ export function UrretaHomePage() {
                 {currentItems.length === 0 ? <div style={emptyStyle}>Todavia no agregaste productos.</div> : null}
               </div>
               {currentItems.length > 0 ? (
-                <div style={{ ...listItemStyle, background: "rgba(213,107,29,0.10)", borderColor: "rgba(213,107,29,0.18)" }}>
+                <div style={{ ...listItemStyle, background: BRAND_ORANGE_SURFACE, borderColor: BRAND_ORANGE_BORDER }}>
                   <strong>Total del pedido</strong>
                   <strong style={{ fontSize: 20 }}>{formatMoney(currentOrderTotal)}</strong>
                 </div>
@@ -829,7 +836,7 @@ export function UrretaHomePage() {
                     </div>
                   ))}
                 </div>
-                <div style={{ ...listItemStyle, background: "rgba(213,107,29,0.10)", borderColor: "rgba(213,107,29,0.18)" }}>
+                <div style={{ ...listItemStyle, background: BRAND_ORANGE_SURFACE, borderColor: BRAND_ORANGE_BORDER }}>
                   <strong>Total final</strong>
                   <strong style={{ fontSize: 20 }}>
                     {formatMoney(

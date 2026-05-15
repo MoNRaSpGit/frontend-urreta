@@ -5,14 +5,12 @@ export type AppBuildMeta = {
   environment: string;
 };
 
-function getEmbeddedBuildMeta(): AppBuildMeta {
-  return {
-    version: __APP_VERSION__,
-    releaseSha: __APP_RELEASE_SHA__,
-    releaseCreatedAt: __APP_RELEASE_CREATED_AT__,
-    environment: import.meta.env.MODE
-  };
-}
+export const FRONTEND_BUILD_INFO: AppBuildMeta = {
+  version: __APP_VERSION__,
+  releaseSha: __APP_RELEASE_SHA__,
+  releaseCreatedAt: __APP_RELEASE_CREATED_AT__,
+  environment: import.meta.env.MODE
+};
 
 export async function getAvailableBuildMeta(): Promise<AppBuildMeta | null> {
   try {
@@ -32,5 +30,5 @@ export async function getAvailableBuildMeta(): Promise<AppBuildMeta | null> {
 
 export async function getAppBuildMeta(): Promise<AppBuildMeta> {
   const availableMeta = await getAvailableBuildMeta();
-  return availableMeta || getEmbeddedBuildMeta();
+  return availableMeta || FRONTEND_BUILD_INFO;
 }
