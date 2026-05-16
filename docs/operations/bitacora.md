@@ -96,3 +96,19 @@ Se cierra un ajuste corto de marca y lectura visual:
 ## Donde quedamos
 
 `urreta` ya tiene una base prolija para crecer, pero todavia no conviene endurecer arquitectura de producto antes de definir mejor el flujo real y el contrato de backend.
+
+## 2026-05-16 - Refactor por capas del feature urreta
+
+Se ordena el modulo para no dejar todo el flujo metido en `UrretaHomePage.tsx`.
+
+Incluye:
+
+- separacion de `types`, `data`, `lib`, `hooks`, `components` y `styles`
+- hook propio para estado y persistencia local
+- componentes separados por paso: cliente, pedido, registro y productos
+- modal de edicion de producto separado
+- estilos del modulo movidos a `features/urreta/styles/urreta-home.css`
+
+Objetivo:
+
+- dejar una base mantenible para seguir el producto sin mezclar storage, reglas, UI y estilos en un solo archivo

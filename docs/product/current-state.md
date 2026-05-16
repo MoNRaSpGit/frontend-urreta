@@ -16,6 +16,7 @@ El modulo ya tiene:
 - aviso de actualizacion
 - base visual lista para crecer
 - `PWA` configurada
+- estructura del feature separada por capas
 
 ## Flujo visible actual
 
@@ -44,6 +45,7 @@ Hoy el modulo:
 - sigue con persistencia local
 - no tiene contrato formal de backend definido
 - sirve para ordenar la base visual y el flujo inicial del producto
+- evita mezclar storage, logica, UI y estilos del modulo en una sola pagina enorme
 
 ## Marca y experiencia actual
 
